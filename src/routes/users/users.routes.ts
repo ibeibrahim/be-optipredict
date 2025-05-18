@@ -12,6 +12,7 @@ export const list = createRoute({
   method: "get",
   tags,
   path: "/users",
+  security: [{ bearerAuth: [] }], 
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.array(UserResponseSchema),
@@ -23,6 +24,7 @@ export const getOne = createRoute({
   method: "get",
   tags,
   path: "/users/{id}",
+  security: [{ bearerAuth: [] }], 
   request: {
     params: IdParamsSchema,
   },

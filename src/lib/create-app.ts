@@ -14,7 +14,7 @@ export function createRouter() {
 }
 
 export default function createApp() {
-  const app = createRouter();
+  const app = createRouter().basePath('/api');
   app.use(pinoLogger());
 
   app.notFound(notFound);

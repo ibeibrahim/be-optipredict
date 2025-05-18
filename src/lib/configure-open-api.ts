@@ -13,8 +13,15 @@ export default function configureOpenAPI(app: AppOpenAPI) {
     },
   });
 
+  app.openAPIRegistry.registerComponent("securitySchemes", "bearerAuth", {
+    type: "http",
+    scheme: "bearer",
+    bearerFormat: "JWT",
+    description: "Enter your JWT token in the format: Bearer {token}",
+  });
+
   app.get("/reference", Scalar({
-    url: "/doc",
+    url: "/api/doc",
     pageTitle: "OptiPredict API",
     theme: "kepler",
     layout: "classic",

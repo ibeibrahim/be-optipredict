@@ -10,6 +10,7 @@ const EnvSchema = z.object({
   NODE_ENV: z.string().default("development"),
   PORT: z.coerce.number().default(3000),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]),
+  JWT_SECRET: z.string().default("secret123"),
 });
 
 export type env = z.infer<typeof EnvSchema>;

@@ -5,6 +5,7 @@ import type { PinoLogger } from "hono-pino";
 export type AppBindings = Env & {
   Variables: {
     logger: PinoLogger;
+    userId?: number; // Added for authentication
   };
 };
 
