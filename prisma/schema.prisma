@@ -26,14 +26,30 @@ model User {
 }
 
 model Prediction {
-  id               Int      @id @default(autoincrement())
-  user_id           Int
-  input_params      Json
-  weather_condition String
-  ber_prediction    Float
-  status           String
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
+  id                      Int       @id @default(autoincrement())
+  user_id                 Int
+
+  // Input parameters from user
+  temp                    Float
+  precip                  Float
+  humidity                Float
+  windspeed               Float
+  uvindex                 Float
+  dew                     Float
+  hour                    Int
+  Power                   Float
+  Range                   Float
+
+  // Prediction results
+  predicted_visibility    Float?
+  predicted_condition_code Int?
+  predicted_condition_label String?
+  attenuation             Float?
+  q_value                 Float?
+  ber_prediction          Float?
+  status                  String     @default("pending")
+  created_at              DateTime   @default(now())
+  updated_at              DateTime   @updatedAt
 
   user User @relation(fields: [user_id], references: [id])
 }
