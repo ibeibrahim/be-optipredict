@@ -37,8 +37,8 @@ model Prediction {
   uvindex                 Float
   dew                     Float
   hour                    Int
-  Power                   Float
-  Range                   Float
+  power                   Float
+  range                   Float
 
   // Prediction results
   predicted_visibility    Float?
@@ -48,6 +48,7 @@ model Prediction {
   q_value                 Float?
   ber_prediction          Float?
   status                  String     @default("pending")
+  category                String?
   created_at              DateTime   @default(now())
   updated_at              DateTime   @updatedAt
 

@@ -1,3 +1,5 @@
+import { cors } from "hono/cors";
+
 import createApp from "@/lib/create-app";
 import auth from "@/routes/auth/auth.index";
 import index from "@/routes/index.route";
@@ -7,6 +9,8 @@ import users from "@/routes/users/users.index";
 import configureOpenAPI from "./lib/configure-open-api";
 
 const app = createApp();
+
+app.use("*", cors());
 
 const routes = [
   index,

@@ -1,7 +1,6 @@
 import { z } from "@hono/zod-openapi";
 
 export const PredictRequestSchema = z.object({
-  user_id: z.number().openapi({ description: "User Id that send the request", example: 1 }),
   temp: z.number().min(-50).max(100).openapi({ description: "Air temperature in Celsius", example: 26.2 }),
   precip: z.number().min(0).openapi({ description: "Precipitation level in mm/hr", example: 0 }),
   humidity: z.number().min(0).max(100).openapi({ description: "Relative humidity percentage", example: 86.85 }),
@@ -9,8 +8,8 @@ export const PredictRequestSchema = z.object({
   uvindex: z.number().min(0).max(15).openapi({ description: "UV Index value", example: 0 }),
   dew: z.number().openapi({ description: "Dew point temperature in Celsius", example: 23.8 }),
   hour: z.number().min(0).max(23).openapi({ description: "Hour of the day in 24-hour format", example: 8 }),
-  Power: z.number().min(0).openapi({ description: "Transmission power in dBm", example: 9 }),
-  Range: z.number().min(0).openapi({ description: "Transmission range in km", example: 4 }),
+  power: z.number().min(0).openapi({ description: "Transmission power in dBm", example: 9 }),
+  range: z.number().min(0).openapi({ description: "Transmission range in km", example: 4 }),
 });
 
 export const VisibilityConditionsRequestSchema = z.object({
@@ -57,17 +56,18 @@ export const BERResponseSchema = z.object({
 });
 
 export const PredictionResponseSchema = z.object({
-  user_id: z.number().int().openapi({ description: "User ID" }),
+  id: z.number(),
+  user_id: z.number().int(),
   // Input parameters
-  temp: z.number().openapi({ description: "Temperature" }),
-  precip: z.number().openapi({ description: "Precipitation" }),
-  humidity: z.number().openapi({ description: "Humidity" }),
-  windspeed: z.number().openapi({ description: "Wind speed" }),
-  uvindex: z.number().openapi({ description: "UV index" }),
-  dew: z.number().openapi({ description: "Dew point" }),
-  hour: z.number().int().openapi({ description: "Hour of day" }),
-  Power: z.number().openapi({ description: "Power" }),
-  Range: z.number().openapi({ description: "Range" }),
+  temp: z.number(),
+  precip: z.number(),
+  humidity: z.number(),
+  windspeed: z.number(),
+  uvindex: z.number(),
+  dew: z.number(),
+  hour: z.number(),
+  power: z.number(),
+  range: z.number(),
 
   // Prediction results
   predicted_visibility: z.number().nullable().openapi({ description: "Predicted visibility" }),
@@ -78,4 +78,7 @@ export const PredictionResponseSchema = z.object({
   ber_prediction: z.number().nullable().openapi({ description: "Predicted Bit Error Rate" }),
 
   status: z.string().openapi({ description: "Status of the prediction, e.g. 'success'" }),
+  category: z.string().nullable().openapi({ description: `Category BER: "Optimal" | "Maintenance" | "Repairing" | ""` }),
+  created_at: z.date().openapi({ description: "Date of the prediction created" }),
+  updated_at: z.date().openapi({ description: "Date of the prediction updated" }),
 });
