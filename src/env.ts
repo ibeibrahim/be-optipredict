@@ -11,6 +11,7 @@ const EnvSchema = z.object({
   PORT: z.coerce.number().default(3000),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]),
   JWT_SECRET: z.string().default("secret123"),
+  FLASK_API: z.string().default("http://localhost:5000")
 });
 
 export type env = z.infer<typeof EnvSchema>;

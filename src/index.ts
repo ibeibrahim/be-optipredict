@@ -12,5 +12,5 @@ serve({
   // eslint-disable-next-line no-console
   console.log(`Server is running on http://localhost:${info.port}`);
   // eslint-disable-next-line no-console
-  console.log(`JWT SECRET: ${env.JWT_SECRET}`);
+  console.log(`Flask API URL: ${env.FLASK_API}`);
 });

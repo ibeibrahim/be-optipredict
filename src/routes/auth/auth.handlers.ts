@@ -5,12 +5,12 @@ import * as HttpStatusPhrases from "stoker/http-status-phrases";
 
 import type { AppRouteHandler } from "@/lib/types";
 
+import env from "@/env";
 import { prisma } from "@/prisma";
 
 import type { Login, Register } from "./auth.routes";
 
-// A simple secret key for JWT - in production, this should be in env vars
-const JWT_SECRET = "optipredict-secret-key";
+const JWT_SECRET = env.JWT_SECRET;
 
 export const register: AppRouteHandler<Register> = async (c) => {
   const { first_name, last_name, email, password } = c.req.valid("json");

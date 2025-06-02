@@ -3,9 +3,12 @@ import * as HttpStatusPhrases from "stoker/http-status-phrases";
 
 import type { AppRouteHandler } from "@/lib/types";
 
+import env from "@/env";
 import { prisma } from "@/prisma";
 
 import type { HistoryPrediction, Prediction, PredictionDetail } from "./predict.routes";
+
+const FLASK_API_URL = env.FLASK_API;
 
 export const getHistory: AppRouteHandler<HistoryPrediction> = async (c) => {
   const userId = c.get("userId");
@@ -144,7 +147,7 @@ export const predictAll: AppRouteHandler<Prediction> = async (c) => {
 
   try {
     // Send input to Flask API
-    const flaskRes = await fetch("http://localhost:5000/predict", {
+    const flaskRes = await fetch(`${FLASK_API_URL}/predict}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
