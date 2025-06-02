@@ -11,6 +11,7 @@ router.use("/users", authMiddleware);
 
 router
   .openapi(routes.list, handlers.list)
-  .openapi(routes.getOne, handlers.userById);
+  .openapi(routes.getOne, handlers.userById)
+  .openapi(routes.updateOne, handlers.updateOne);
 
 export default router;

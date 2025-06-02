@@ -13,14 +13,14 @@ const router = createRouter()
       path: "/",
       responses: {
         [HttpStatusCodes.OK]: jsonContent(
-          createMessageObjectSchema("OptiPredict API"),
-          "OptiPredict Index",
+          createMessageObjectSchema("FSOPredict API"),
+          "FSOPredict Index",
         ),
       },
     }),
     (c) => {
       return c.json({
-        message: "OptiPredict API",
+        message: "FSOPredict API",
       }, HttpStatusCodes.OK);
     },
   );

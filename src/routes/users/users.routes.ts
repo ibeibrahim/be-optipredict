@@ -4,7 +4,8 @@ import { jsonContent } from "stoker/openapi/helpers";
 import { createErrorSchema, IdParamsSchema } from "stoker/openapi/schemas";
 
 import { notFoundSchema } from "@/lib/constants";
-import { UserResponseSchema } from "@/schemas/user.schema";
+import { AuthErrorSchema } from "@/schemas/auth.schema";
+import { UpdateProfileRequestSchema, UserResponseSchema } from "@/schemas/user.schema";
 
 const tags = ["Users"];
 
@@ -12,7 +13,7 @@ export const list = createRoute({
   method: "get",
   tags,
   path: "/users",
-  security: [{ bearerAuth: [] }], 
+  security: [{ bearerAuth: [] }],
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       z.array(UserResponseSchema),
@@ -24,7 +25,7 @@ export const getOne = createRoute({
   method: "get",
   tags,
   path: "/users/{id}",
-  security: [{ bearerAuth: [] }], 
+  security: [{ bearerAuth: [] }],
   request: {
     params: IdParamsSchema,
   },
@@ -38,8 +39,42 @@ export const getOne = createRoute({
       "User not found",
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(IdParamsSchema),
-      "Invalid id error",
+      createErrorSchema(UpdateProfileRequestSchema),
+      "Validation error",
+    ),
+  },
+});
+export const updateOne = createRoute({
+  method: "post",
+  tags,
+  path: "/users/{id}",
+  security: [{ bearerAuth: [] }],
+  request: {
+    params: IdParamsSchema,
+    body: {
+      content: {
+        "application/json": {
+          schema: UpdateProfileRequestSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      UserResponseSchema,
+      "Successfully updated user data",
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      notFoundSchema,
+      "User not found",
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(UpdateProfileRequestSchema),
+      "Validation error",
+    ),
+    [HttpStatusCodes.INTERNAL_SERVER_ERROR]: jsonContent(
+      AuthErrorSchema,
+      "Internal Server Error",
     ),
 
   },
@@ -47,3 +82,4 @@ export const getOne = createRoute({
 
 export type ListUsers = typeof list;
 export type User = typeof getOne;
+export type updateUser = typeof updateOne;

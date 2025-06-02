@@ -9,7 +9,7 @@ export default function configureOpenAPI(app: AppOpenAPI) {
     openapi: "3.0.0",
     info: {
       version: packageJSON.version,
-      title: "OptiPredict API",
+      title: "FSOPredict API",
     },
   });
 
@@ -22,7 +22,7 @@ export default function configureOpenAPI(app: AppOpenAPI) {
 
   app.get("/reference", Scalar({
     url: "/api/doc",
-    pageTitle: "OptiPredict API",
+    pageTitle: "FSOPredict API",
     theme: "kepler",
     layout: "classic",
     defaultHttpClient: {

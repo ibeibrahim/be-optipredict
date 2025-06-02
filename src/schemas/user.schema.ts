@@ -9,3 +9,9 @@ export const UserResponseSchema = z.object({
   created_at: z.date(),
   updated_at: z.date(),
 });
+
+export const UpdateProfileRequestSchema = z.object({
+  first_name: z.string().min(1, "First name is required"),
+  last_name: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email address"),
+});
